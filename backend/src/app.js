@@ -3,7 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
-const authRoutes = require('./routes/auth');
+const authRoutes = require("./routes/Auth");
+const productRoutes = require("./routes/Product");
 
 const app = express();
 
@@ -32,7 +33,8 @@ app.get("/", (req, res) => {
 });
 
 // Rutas
-app.use('/auth', authRoutes);
+app.use("/auth", authRoutes);
+app.use("/products", productRoutes);
 
 // Manejo de rutas no encontradas (404)
 app.use((req, res) => {
