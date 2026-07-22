@@ -3,6 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
+const authRoutes = require('./routes/auth');
+
 const app = express();
 
 // Middlewares de seguridad y registros
@@ -28,6 +30,9 @@ app.get("/", (req, res) => {
     message: "API del Sistema de Ventas en ejecución",
   });
 });
+
+// Rutas
+app.use('/auth', authRoutes);
 
 // Manejo de rutas no encontradas (404)
 app.use((req, res) => {
