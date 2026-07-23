@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const authRoutes = require("./routes/Auth");
 const productRoutes = require("./routes/Product");
 const saleRoutes = require("./routes/Sale");
+const cashRegisterRoutes = require("./routes/CashRegister");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/sales", saleRoutes);
+app.use("/cash-registers", cashRegisterRoutes);
 
 // Manejo de rutas no encontradas (404)
 app.use((req, res) => {
