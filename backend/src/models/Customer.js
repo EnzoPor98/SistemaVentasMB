@@ -6,7 +6,6 @@ const customerSchema = new mongoose.Schema(
       type: String,
       required: [true, "El nombre o razón social es obligatorio"],
       trim: true,
-      index: true,
     },
     docType: {
       type: String,
@@ -15,7 +14,6 @@ const customerSchema = new mongoose.Schema(
     },
     docNumber: {
       type: String,
-      default: "",
       trim: true,
       index: true,
     },
@@ -23,19 +21,17 @@ const customerSchema = new mongoose.Schema(
       type: String,
       lowercase: true,
       trim: true,
-      default: "",
     },
     phone: {
       type: String,
-      default: "",
       trim: true,
     },
     address: {
-      street: { type: String, default: "" },
-      city: { type: String, default: "" },
-      state: { type: String, default: "" },
-      zipCode: { type: String, default: "" },
+      street: String,
+      city: String,
+      zipCode: String,
     },
+    // Para facturación o perfil de precios
     taxCondition: {
       type: String,
       enum: [
@@ -46,15 +42,10 @@ const customerSchema = new mongoose.Schema(
       ],
       default: "CONSUMIDOR_FINAL",
     },
-    // Datos de integración con MercadoLibre
-    meliBuyerId: {
-      type: String,
-      default: null,
-      index: true,
-    },
-    notes: {
-      type: String,
-      default: "",
+    // Cuenta Corriente / Saldo adeudado
+    currentBalance: {
+      type: Number,
+      default: 0,
     },
     active: {
       type: Boolean,
@@ -65,5 +56,8 @@ const customerSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+// Búsqueda por texto (Nombre o Documento)
+customerSchema.index({ name: "text", docNumber: "text" });
 
 module.exports = mongoose.model("Customer", customerSchema);
